@@ -24,9 +24,11 @@ function lastOutputChunk(output: string): string {
   return lines.slice(-20).join("\n");
 }
 
-function createPnpmCommandArgs(): { command: string; args: string[]; shell: boolean } {
-  const pnpmArgs = ["--filter", "@webmcp/demo-shop", "dev:playwright"];
-
+function createPnpmCommandArgs(pnpmArgs: string[]): {
+  command: string;
+  args: string[];
+  shell: boolean;
+} {
   if (process.env.npm_execpath && process.env.npm_execpath.includes("pnpm")) {
     return {
       command: process.execPath,
@@ -48,6 +50,32 @@ function createPnpmCommandArgs(): { command: string; args: string[]; shell: bool
     args: pnpmArgs,
     shell: false
   };
+}
+
+function runPnpmSetupOrThrow(pnpmArgs: string[]): void {
+  const pnpmCommand = createPnpmCommandArgs(pnpmArgs);
+  const result = spawnSync(pnpmCommand.command, pnpmCommand.args, {
+    cwd: workspaceRoot,
+    shell: pnpmCommand.shell,
+    env: {
+      ...process.env,
+      CI: "1"
+    },
+    encoding: "utf8"
+  });
+
+  if (result.status === 0) {
+    return;
+  }
+
+  const stdout = result.stdout ?? "";
+  const stderr = result.stderr ?? "";
+  const output = `${stdout}\n${stderr}`.trim();
+  const details = output ? `\n\nLast output:\n${lastOutputChunk(output)}` : "";
+
+  throw new Error(
+    `pnpm ${pnpmArgs.join(" ")} failed before starting demo-shop (code=${String(result.status)})${details}`
+  );
 }
 
 async function waitForServer(url: string, timeoutMs: number): Promise<void> {
@@ -79,7 +107,10 @@ beforeAll(async () => {
     // server not ready, continue and spawn
   }
 
-  const pnpmCommand = createPnpmCommandArgs();
+  runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sdk", "build"]);
+  runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sw-runtime", "build"]);
+
+  const pnpmCommand = createPnpmCommandArgs(["--filter", "@webmcp/demo-shop", "dev:playwright"]);
 
   demoShopProcess = spawn(pnpmCommand.command, pnpmCommand.args, {
     cwd: workspaceRoot,
