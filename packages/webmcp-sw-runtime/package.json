@@ -1,6 +1,6 @@
 {
   "name": "@luchibei/webmcp-sw-runtime",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Service worker runtime helpers for WebMCP",
   "type": "module",
   "sideEffects": false,
