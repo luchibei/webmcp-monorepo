@@ -43,7 +43,7 @@ jobs:
         run: pnpm --filter @webmcp/registry exec playwright install chromium
 
       - name: Verify before release
-        run: pnpm lint && pnpm -r test && pnpm -r build && pnpm check:manifests
+        run: pnpm lint && pnpm -r --workspace-concurrency=1 test && pnpm -r build && pnpm check:manifests
 
       - name: Version or Publish with Changesets
         uses: changesets/action@v1
