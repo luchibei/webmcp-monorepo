@@ -78,16 +78,26 @@ function runPnpmSetupOrThrow(pnpmArgs: string[]): void {
   );
 }
 
-async function waitForServer(url: string, timeoutMs: number): Promise<void> {
+async function waitForServer(
+  url: string,
+  timeoutMs: number,
+  getProcessOutput?: () => string
+): Promise<void> {
   const start = Date.now();
+  let lastStatus: number | null = null;
+  let lastError: string | null = null;
 
   while (Date.now() - start < timeoutMs) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        signal: AbortSignal.timeout(10_000)
+      });
+      lastStatus = response.status;
       if (response.status < 500) {
         return;
       }
-    } catch {
+    } catch (error) {
+      lastError = error instanceof Error ? error.message : String(error);
       // keep polling
     }
 
@@ -96,7 +106,14 @@ async function waitForServer(url: string, timeoutMs: number): Promise<void> {
     });
   }
 
-  throw new Error(`Timed out waiting for server: ${url}`);
+  const output = getProcessOutput ? getProcessOutput() : "";
+  const outputDetails = output ? `\n\nLast output:\n${lastOutputChunk(output)}` : "";
+  const statusDetails = lastStatus === null ? "none" : String(lastStatus);
+  const errorDetails = lastError ?? "none";
+
+  throw new Error(
+    `Timed out waiting for server: ${url} (lastStatus=${statusDetails}, lastError=${errorDetails})${outputDetails}`
+  );
 }
 
 beforeAll(async () => {
@@ -109,8 +126,17 @@ beforeAll(async () => {
 
   runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sdk", "build"]);
   runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sw-runtime", "build"]);
+  runPnpmSetupOrThrow(["--filter", "@webmcp/demo-shop", "build"]);
 
-  const pnpmCommand = createPnpmCommandArgs(["--filter", "@webmcp/demo-shop", "dev:playwright"]);
+  const pnpmCommand = createPnpmCommandArgs([
+    "--filter",
+    "@webmcp/demo-shop",
+    "start",
+    "--port",
+    "3100",
+    "--hostname",
+    "127.0.0.1"
+  ]);
 
   demoShopProcess = spawn(pnpmCommand.command, pnpmCommand.args, {
     cwd: workspaceRoot,
@@ -156,12 +182,12 @@ beforeAll(async () => {
   });
 
   await Promise.race([
-    waitForServer(DEMO_SHOP_URL, 180_000),
+    waitForServer(DEMO_SHOP_URL, 300_000, () => combinedOutput),
     spawnErrorPromise,
     prematureExitPromise
   ]);
   serverReady = true;
-}, 240_000);
+}, 420_000);
 
 afterAll(() => {
   if (!demoShopProcess?.pid) {
