@@ -67,8 +67,7 @@ jobs:
         uses: changesets/action@v1
         with:
           version: pnpm version-packages
-          publish: >-
-            bash -lc 'output=$(pnpm changeset publish --access public 2>&1) || { echo "$output"; echo "::error::changeset publish failed: $output"; exit 1; }; echo "$output"'
+          publish: pnpm changeset publish --access public
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
