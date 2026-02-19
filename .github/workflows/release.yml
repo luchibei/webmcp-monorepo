@@ -48,6 +48,12 @@ jobs:
       - name: Verify npm auth token
         run: |
           set -e
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "::error::NPM_TOKEN secret is empty or not available to this workflow"
+            exit 1
+          fi
+
+          npm config set //registry.npmjs.org/:_authToken "$NODE_AUTH_TOKEN"
           output=$(npm whoami 2>&1) || {
             echo "$output"
             echo "::error::npm auth failed: $output"
