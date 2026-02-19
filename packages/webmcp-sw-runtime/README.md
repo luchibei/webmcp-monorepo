@@ -1,4 +1,4 @@
-# @webmcp/webmcp-sw-runtime
+# @luchibei/webmcp-sw-runtime
 
 Service Worker runtime for WebMCP tools.
 
@@ -10,7 +10,7 @@ This package supports two execution modes:
 ## Install
 
 ```bash
-pnpm add @webmcp/webmcp-sw-runtime @webmcp/webmcp-sdk zod
+pnpm add @luchibei/webmcp-sw-runtime @luchibei/webmcp-sdk zod
 ```
 
 ## API List
@@ -29,7 +29,7 @@ pnpm add @webmcp/webmcp-sw-runtime @webmcp/webmcp-sdk zod
 ### 1) Page side: bridge + SW-backed tool
 
 ```ts
-import { createSwToolBridge, defineSwBackedTool } from "@webmcp/webmcp-sw-runtime";
+import { createSwToolBridge, defineSwBackedTool } from "@luchibei/webmcp-sw-runtime";
 import { z } from "zod";
 
 createSwToolBridge({
@@ -50,8 +50,8 @@ const prepareCheckoutTool = defineSwBackedTool({
 ### 2) SW side: router
 
 ```ts
-import { createSwRouter } from "@webmcp/webmcp-sw-runtime";
-import { fail } from "@webmcp/webmcp-sdk";
+import { createSwRouter } from "@luchibei/webmcp-sw-runtime";
+import { fail } from "@luchibei/webmcp-sdk";
 import { z } from "zod";
 
 let checkoutContext: {

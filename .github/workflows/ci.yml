@@ -28,7 +28,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Chromium
-        run: pnpm --filter @webmcp/registry exec playwright install chromium
+        run: pnpm --filter @luchibei/registry exec playwright install chromium
 
       - name: Lint
         run: pnpm lint

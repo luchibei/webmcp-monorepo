@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { WebMcpProvider } from "@webmcp/webmcp-react";
+import { WebMcpProvider } from "@luchibei/webmcp-react";
 import { useEffect } from "react";
 
 import { isShopSwBridgeReady, syncCheckoutStateToSw } from "@/lib/sw-bridge";

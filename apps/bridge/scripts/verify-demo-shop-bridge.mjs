@@ -80,7 +80,7 @@ async function stopProcessTree(child) {
 }
 
 async function main() {
-  const demoCommand = getPnpmCommand(["--filter", "@webmcp/demo-shop", "dev:playwright"]);
+  const demoCommand = getPnpmCommand(["--filter", "@luchibei/demo-shop", "dev:playwright"]);
 
   const demoServer = spawn(demoCommand.command, demoCommand.args, {
     cwd: workspaceRoot,
@@ -98,7 +98,7 @@ async function main() {
 
     const bridgeCommand = getPnpmCommand([
       "--filter",
-      "@webmcp/bridge",
+      "@luchibei/bridge",
       "bridge",
       "--url",
       DEMO_URL

@@ -6,7 +6,7 @@ This repo uses Changesets for versioning and package publishing.
 
 - Node.js `>=20`
 - pnpm `9.x`
-- npm publish permission for `@webmcp/*`
+- npm publish permission for `@luchibei/*`
 
 ## Daily Development Flow
 
@@ -79,7 +79,7 @@ Behavior on push to `main`:
 
 Required repository secrets:
 
-- `NPM_TOKEN`: npm automation token with publish permission for `@webmcp/*`
+- `NPM_TOKEN`: npm automation token with publish permission for `@luchibei/*`
 
 `GITHUB_TOKEN` is provided automatically by GitHub Actions.
 

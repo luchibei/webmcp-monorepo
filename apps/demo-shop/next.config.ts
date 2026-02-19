@@ -1,7 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@webmcp/webmcp-sdk", "@webmcp/webmcp-react", "@webmcp/webmcp-sw-runtime"]
+  transpilePackages: [
+    "@luchibei/webmcp-sdk",
+    "@luchibei/webmcp-react",
+    "@luchibei/webmcp-sw-runtime"
+  ]
 };
 
 export default nextConfig;

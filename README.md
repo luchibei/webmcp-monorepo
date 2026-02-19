@@ -13,8 +13,8 @@ pnpm dev
 
 Then open:
 
-- demo shop (tools + checkout flow): check terminal for `@webmcp/demo-shop` URL (usually `http://localhost:3000`)
-- registry (verify WebMCP sites): check terminal for `@webmcp/registry` URL
+- demo shop (tools + checkout flow): check terminal for `@luchibei/demo-shop` URL (usually `http://localhost:3000`)
+- registry (verify WebMCP sites): check terminal for `@luchibei/registry` URL
 
 Tip: `pnpm dev` starts all workspaces in parallel for quick local exploration.
 
@@ -23,13 +23,13 @@ Tip: `pnpm dev` starts all workspaces in parallel for quick local exploration.
 Install SDK:
 
 ```bash
-pnpm add @webmcp/webmcp-sdk zod
+pnpm add @luchibei/webmcp-sdk zod
 ```
 
 Add a tool:
 
 ```ts
-import { defineTool, ok, registerToolSafe } from "@webmcp/webmcp-sdk";
+import { defineTool, ok, registerToolSafe } from "@luchibei/webmcp-sdk";
 import { z } from "zod";
 
 const searchProductsTool = defineTool({

@@ -5,8 +5,8 @@ import {
   type ModelContextClient,
   type ModelContextTool,
   type ToolResponse
-} from "@webmcp/webmcp-sdk";
-import { defineSwBackedTool } from "@webmcp/webmcp-sw-runtime";
+} from "@luchibei/webmcp-sdk";
+import { defineSwBackedTool } from "@luchibei/webmcp-sw-runtime";
 import { z } from "zod";
 
 import { getShopSwBridge } from "./sw-bridge";

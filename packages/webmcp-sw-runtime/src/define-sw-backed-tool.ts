@@ -5,7 +5,7 @@ import {
   type MaybePromise,
   type ModelContextClient,
   type ModelContextTool
-} from "@webmcp/webmcp-sdk";
+} from "@luchibei/webmcp-sdk";
 import type { z } from "zod";
 
 import { getActiveSwToolBridge } from "./bridge.js";

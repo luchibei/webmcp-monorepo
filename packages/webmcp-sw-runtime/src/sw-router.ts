@@ -6,7 +6,7 @@ import {
   type ModelContextOptions,
   type ModelContextTool,
   type ToolResponse
-} from "@webmcp/webmcp-sdk";
+} from "@luchibei/webmcp-sdk";
 import type { z } from "zod";
 
 import { WEBMCP_TOOL_CALL, WEBMCP_TOOL_RESULT, type SwToolCallMessage } from "./protocol.js";

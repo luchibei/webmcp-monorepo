@@ -1,4 +1,4 @@
-# @webmcp/registry
+# @luchibei/registry
 
 WebMCP site directory + verification CLI.
 
@@ -15,7 +15,7 @@ WebMCP site directory + verification CLI.
 
 ```bash
 pnpm install
-pnpm --filter @webmcp/registry dev
+pnpm --filter @luchibei/registry dev
 ```
 
 Open: `http://localhost:3000`
@@ -25,14 +25,14 @@ Open: `http://localhost:3000`
 Terminal 1:
 
 ```bash
-pnpm --filter @webmcp/demo-shop dev:playwright
+pnpm --filter @luchibei/demo-shop dev:playwright
 ```
 
 Terminal 2:
 
 ```bash
-pnpm --filter @webmcp/registry build:cli
-pnpm --filter @webmcp/registry webmcp-verify http://localhost:3100
+pnpm --filter @luchibei/registry build:cli
+pnpm --filter @luchibei/registry webmcp-verify http://localhost:3100
 ```
 
 ## API verify

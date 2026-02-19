@@ -1,5 +1,5 @@
 {
-  "name": "@webmcp/registry",
+  "name": "@luchibei/registry",
   "version": "0.1.0",
   "private": true,
   "description": "Registry and verification app scaffold for WebMCP sites",

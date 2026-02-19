@@ -3,7 +3,7 @@ import {
   registerToolsSafe,
   registerToolSafe,
   type ModelContextTool
-} from "@webmcp/webmcp-sdk";
+} from "@luchibei/webmcp-sdk";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**

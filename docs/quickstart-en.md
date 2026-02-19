@@ -10,13 +10,13 @@ This guide gets you from zero to your first registered WebMCP tool.
 ## 1) Install
 
 ```bash
-pnpm add @webmcp/webmcp-sdk zod
+pnpm add @luchibei/webmcp-sdk zod
 ```
 
 ## 2) Define your first tool
 
 ```ts
-import { defineTool, ok } from "@webmcp/webmcp-sdk";
+import { defineTool, ok } from "@luchibei/webmcp-sdk";
 import { z } from "zod";
 
 export const getPageTitleTool = defineTool({
@@ -35,7 +35,7 @@ export const getPageTitleTool = defineTool({
 ## 3) Register safely
 
 ```ts
-import { isWebMcpSupported, registerToolSafe } from "@webmcp/webmcp-sdk";
+import { isWebMcpSupported, registerToolSafe } from "@luchibei/webmcp-sdk";
 
 if (isWebMcpSupported()) {
   await registerToolSafe(getPageTitleTool);
@@ -47,7 +47,7 @@ If WebMCP is unavailable, safe wrappers no-op and your page still works.
 ## 4) Add one useful macro tool
 
 ```ts
-import { defineTool, ok } from "@webmcp/webmcp-sdk";
+import { defineTool, ok } from "@luchibei/webmcp-sdk";
 import { z } from "zod";
 
 const searchFlightsTool = defineTool({

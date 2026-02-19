@@ -10,13 +10,13 @@
 ## 1）安装
 
 ```bash
-pnpm add @webmcp/webmcp-sdk zod
+pnpm add @luchibei/webmcp-sdk zod
 ```
 
 ## 2）定义第一个工具
 
 ```ts
-import { defineTool, ok } from "@webmcp/webmcp-sdk";
+import { defineTool, ok } from "@luchibei/webmcp-sdk";
 import { z } from "zod";
 
 export const getPageTitleTool = defineTool({
@@ -35,7 +35,7 @@ export const getPageTitleTool = defineTool({
 ## 3）安全注册
 
 ```ts
-import { isWebMcpSupported, registerToolSafe } from "@webmcp/webmcp-sdk";
+import { isWebMcpSupported, registerToolSafe } from "@luchibei/webmcp-sdk";
 
 if (isWebMcpSupported()) {
   await registerToolSafe(getPageTitleTool);
@@ -47,7 +47,7 @@ if (isWebMcpSupported()) {
 ## 4）再加一个“宏工具”
 
 ```ts
-import { defineTool, ok } from "@webmcp/webmcp-sdk";
+import { defineTool, ok } from "@luchibei/webmcp-sdk";
 import { z } from "zod";
 
 const searchFlightsTool = defineTool({

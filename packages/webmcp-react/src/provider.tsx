@@ -4,7 +4,7 @@ import {
   provideContextSafe,
   registerToolsSafe,
   type ModelContextTool
-} from "@webmcp/webmcp-sdk";
+} from "@luchibei/webmcp-sdk";
 import { useEffect, type PropsWithChildren } from "react";
 
 /**

@@ -44,25 +44,25 @@ importers:
 
   apps/bridge:
     dependencies:
+      '@luchibei/webmcp-sdk':
+        specifier: workspace:*
+        version: link:../../packages/webmcp-sdk
       '@modelcontextprotocol/sdk':
         specifier: ^1.26.0
         version: 1.26.0(zod@3.25.76)
-      '@webmcp/webmcp-sdk':
-        specifier: workspace:*
-        version: link:../../packages/webmcp-sdk
       playwright:
         specifier: ^1.58.2
         version: 1.58.2
 
   apps/demo-shop:
     dependencies:
-      '@webmcp/webmcp-react':
+      '@luchibei/webmcp-react':
         specifier: workspace:*
         version: link:../../packages/webmcp-react
-      '@webmcp/webmcp-sdk':
+      '@luchibei/webmcp-sdk':
         specifier: workspace:*
         version: link:../../packages/webmcp-sdk
-      '@webmcp/webmcp-sw-runtime':
+      '@luchibei/webmcp-sw-runtime':
         specifier: workspace:*
         version: link:../../packages/webmcp-sw-runtime
       next:
@@ -115,7 +115,7 @@ importers:
 
   packages/webmcp-react:
     dependencies:
-      '@webmcp/webmcp-sdk':
+      '@luchibei/webmcp-sdk':
         specifier: workspace:*
         version: link:../webmcp-sdk
       next:
@@ -152,7 +152,7 @@ importers:
 
   packages/webmcp-sw-runtime:
     dependencies:
-      '@webmcp/webmcp-sdk':
+      '@luchibei/webmcp-sdk':
         specifier: workspace:*
         version: link:../webmcp-sdk
       zod:

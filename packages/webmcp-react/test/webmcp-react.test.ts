@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 
-import type { ModelContext, ModelContextTool } from "@webmcp/webmcp-sdk";
+import type { ModelContext, ModelContextTool } from "@luchibei/webmcp-sdk";
 import { cleanup, render, waitFor } from "@testing-library/react";
 import React, { useEffect } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";

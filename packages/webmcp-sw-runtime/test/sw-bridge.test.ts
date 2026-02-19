@@ -1,4 +1,4 @@
-import type { ModelContextClient } from "@webmcp/webmcp-sdk";
+import type { ModelContextClient } from "@luchibei/webmcp-sdk";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 

@@ -1,4 +1,4 @@
-# @webmcp/webmcp-react
+# @luchibei/webmcp-react
 
 React integration for WebMCP tool lifecycle management.
 
@@ -7,7 +7,7 @@ Use this package when you want registration/unregistration behavior tied to Reac
 ## Install
 
 ```bash
-pnpm add @webmcp/webmcp-react @webmcp/webmcp-sdk zod
+pnpm add @luchibei/webmcp-react @luchibei/webmcp-sdk zod
 ```
 
 ## API List
@@ -18,7 +18,7 @@ pnpm add @webmcp/webmcp-react @webmcp/webmcp-sdk zod
   - returns tool registration status for one tool
 - `useWebMcpTools(tools, enabled?)`
   - returns registration status for multiple tools
-- `WebMcpRouteBoundary` (from `@webmcp/webmcp-react/next`)
+- `WebMcpRouteBoundary` (from `@luchibei/webmcp-react/next`)
   - props: `toolsFactory(pathname)`
 
 ---
@@ -30,7 +30,7 @@ pnpm add @webmcp/webmcp-react @webmcp/webmcp-sdk zod
 ```tsx
 "use client";
 
-import { WebMcpProvider } from "@webmcp/webmcp-react";
+import { WebMcpProvider } from "@luchibei/webmcp-react";
 
 import { getShopTools } from "./tools";
 
@@ -46,8 +46,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 ### 2) Component-level tool (`useWebMcpTool`)
 
 ```ts
-import { defineTool, ok } from "@webmcp/webmcp-sdk";
-import { useWebMcpTool } from "@webmcp/webmcp-react";
+import { defineTool, ok } from "@luchibei/webmcp-sdk";
+import { useWebMcpTool } from "@luchibei/webmcp-react";
 import { z } from "zod";
 
 const viewCartTool = defineTool({
@@ -70,8 +70,8 @@ export function CartWidget() {
 ```tsx
 "use client";
 
-import { defineTool } from "@webmcp/webmcp-sdk";
-import { WebMcpRouteBoundary } from "@webmcp/webmcp-react/next";
+import { defineTool } from "@luchibei/webmcp-sdk";
+import { WebMcpRouteBoundary } from "@luchibei/webmcp-react/next";
 import { z } from "zod";
 
 const listOrdersTool = defineTool({

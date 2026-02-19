@@ -1,4 +1,4 @@
-# @webmcp/bridge
+# @luchibei/bridge
 
 Node bridge service that turns a WebMCP website into an MCP server for any MCP-compatible AI client.
 
@@ -37,18 +37,18 @@ Node bridge service that turns a WebMCP website into an MCP server for any MCP-c
 
 ```bash
 pnpm install
-pnpm --filter @webmcp/bridge build
-pnpm --filter @webmcp/bridge bridge --url http://localhost:3100
+pnpm --filter @luchibei/bridge build
+pnpm --filter @luchibei/bridge bridge --url http://localhost:3100
 ```
 
 Useful variants:
 
 ```bash
 # allowlist specific write tools
-pnpm --filter @webmcp/bridge bridge --url http://localhost:3100 --allow-write addToCart,placeOrder
+pnpm --filter @luchibei/bridge bridge --url http://localhost:3100 --allow-write addToCart,placeOrder
 
 # local interactive demo mode (headed browser)
-pnpm --filter @webmcp/bridge bridge --url http://localhost:3100 --interactive
+pnpm --filter @luchibei/bridge bridge --url http://localhost:3100 --interactive
 ```
 
 ## Test with MCP clients
@@ -58,13 +58,13 @@ Any MCP client that supports stdio can launch this command as a server program.
 Generic stdio server command:
 
 ```bash
-pnpm --filter @webmcp/bridge bridge --url http://localhost:3100
+pnpm --filter @luchibei/bridge bridge --url http://localhost:3100
 ```
 
 Example with MCP Inspector:
 
 ```bash
-npx @modelcontextprotocol/inspector pnpm --filter @webmcp/bridge bridge --url http://localhost:3100
+npx @modelcontextprotocol/inspector pnpm --filter @luchibei/bridge bridge --url http://localhost:3100
 ```
 
 Then from the MCP client:
@@ -74,7 +74,7 @@ Then from the MCP client:
 
 ## Scripts
 
-- `pnpm --filter @webmcp/bridge build`
-- `pnpm --filter @webmcp/bridge bridge --url <siteUrl>`
-- `pnpm --filter @webmcp/bridge test`
-- `pnpm --filter @webmcp/bridge lint`
+- `pnpm --filter @luchibei/bridge build`
+- `pnpm --filter @luchibei/bridge bridge --url <siteUrl>`
+- `pnpm --filter @luchibei/bridge test`
+- `pnpm --filter @luchibei/bridge lint`

@@ -1,4 +1,4 @@
-import { fail, isToolResponse, type ToolResponse } from "@webmcp/webmcp-sdk";
+import { fail, isToolResponse, type ToolResponse } from "@luchibei/webmcp-sdk";
 
 import { WEBMCP_TOOL_CALL, WEBMCP_TOOL_RESULT } from "./protocol.js";
 

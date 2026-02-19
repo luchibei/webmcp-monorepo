@@ -1,5 +1,5 @@
 {
-  "name": "@webmcp/demo-shop",
+  "name": "@luchibei/demo-shop",
   "version": "0.1.0",
   "private": true,
   "description": "Demo shopping site for WebMCP integration",
@@ -19,9 +19,9 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zod": "^3.23.8",
-    "@webmcp/webmcp-react": "workspace:*",
-    "@webmcp/webmcp-sdk": "workspace:*",
-    "@webmcp/webmcp-sw-runtime": "workspace:*"
+    "@luchibei/webmcp-react": "workspace:*",
+    "@luchibei/webmcp-sdk": "workspace:*",
+    "@luchibei/webmcp-sw-runtime": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",

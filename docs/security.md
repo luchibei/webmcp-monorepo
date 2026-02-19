@@ -4,7 +4,7 @@
 
 ## 1. 风险分级约定（上层约定）
 
-在 `@webmcp/webmcp-sdk` 中，工具可声明：
+在 `@luchibei/webmcp-sdk` 中，工具可声明：
 
 - `risk: "read"`
 - `risk: "write"`

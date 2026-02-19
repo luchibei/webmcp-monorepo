@@ -1,5 +1,5 @@
 {
-  "name": "@webmcp/bridge",
+  "name": "@luchibei/bridge",
   "version": "0.1.0",
   "private": true,
   "description": "WebMCP site to MCP server bridge",
@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.26.0",
-    "@webmcp/webmcp-sdk": "workspace:*",
+    "@luchibei/webmcp-sdk": "workspace:*",
     "playwright": "^1.58.2"
   },
   "engines": {

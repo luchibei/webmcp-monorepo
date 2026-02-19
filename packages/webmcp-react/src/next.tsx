@@ -1,4 +1,4 @@
-import type { ModelContextTool } from "@webmcp/webmcp-sdk";
+import type { ModelContextTool } from "@luchibei/webmcp-sdk";
 import { usePathname } from "next/navigation";
 import { useMemo, type PropsWithChildren } from "react";
 

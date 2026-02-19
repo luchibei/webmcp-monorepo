@@ -1,5 +1,5 @@
 {
-  "name": "@webmcp/webmcp-sdk",
+  "name": "@luchibei/webmcp-sdk",
   "version": "0.1.0",
   "description": "Core SDK primitives for WebMCP tools",
   "type": "module",

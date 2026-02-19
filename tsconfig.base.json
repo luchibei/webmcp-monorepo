@@ -21,9 +21,9 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@webmcp/webmcp-sdk": ["packages/webmcp-sdk/src/index.ts"],
-      "@webmcp/webmcp-react": ["packages/webmcp-react/src/index.ts"],
-      "@webmcp/webmcp-sw-runtime": ["packages/webmcp-sw-runtime/src/index.ts"]
+      "@luchibei/webmcp-sdk": ["packages/webmcp-sdk/src/index.ts"],
+      "@luchibei/webmcp-react": ["packages/webmcp-react/src/index.ts"],
+      "@luchibei/webmcp-sw-runtime": ["packages/webmcp-sw-runtime/src/index.ts"]
     },
     "types": ["node"]
   },

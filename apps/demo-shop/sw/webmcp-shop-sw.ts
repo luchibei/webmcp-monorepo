@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 
-import { fail } from "@webmcp/webmcp-sdk";
-import { createSwRouter } from "@webmcp/webmcp-sw-runtime";
+import { fail } from "@luchibei/webmcp-sdk";
+import { createSwRouter } from "@luchibei/webmcp-sw-runtime";
 import { z } from "zod";
 
 const FREE_SHIPPING_THRESHOLD = 300;

@@ -1,5 +1,5 @@
 {
-  "name": "@webmcp/webmcp-sw-runtime",
+  "name": "@luchibei/webmcp-sw-runtime",
   "version": "0.1.0",
   "description": "Service worker runtime helpers for WebMCP",
   "type": "module",
@@ -23,7 +23,7 @@
     "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\""
   },
   "dependencies": {
-    "@webmcp/webmcp-sdk": "workspace:*",
+    "@luchibei/webmcp-sdk": "workspace:*",
     "zod": "^3.23.8"
   },
   "engines": {

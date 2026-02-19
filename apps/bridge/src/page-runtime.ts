@@ -1,6 +1,6 @@
 import { chromium, type Browser, type BrowserContext, type Page } from "playwright";
 
-import type { ToolResponse } from "@webmcp/webmcp-sdk";
+import type { ToolResponse } from "@luchibei/webmcp-sdk";
 
 import type { WriteToolPolicy } from "./cli-args.js";
 

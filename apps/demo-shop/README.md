@@ -1,4 +1,4 @@
-# @webmcp/demo-shop
+# @luchibei/demo-shop
 
 Macro-tool-first ecommerce demo built with Next.js App Router.
 
@@ -8,7 +8,7 @@ Goal: let a browser AI agent complete purchase in 2-4 WebMCP tool calls.
 
 - Product catalog with mock data (12 products)
 - Product detail, cart, checkout, and order status UI
-- 8 high-level WebMCP tools registered through `@webmcp/webmcp-react`
+- 8 high-level WebMCP tools registered through `@luchibei/webmcp-react`
 - Real in-page confirmation modal for `placeOrder` via `requestUserInteraction`
 - `prepareCheckout` runs through Service Worker first (with page fallback)
 - `/tools` page for tool manifest + manual tool execution
@@ -30,7 +30,7 @@ From repo root:
 
 ```bash
 pnpm install
-pnpm --filter @webmcp/demo-shop dev
+pnpm --filter @luchibei/demo-shop dev
 ```
 
 Open `http://localhost:3000`.
@@ -38,13 +38,13 @@ Open `http://localhost:3000`.
 ## Unit tests
 
 ```bash
-pnpm --filter @webmcp/demo-shop test
+pnpm --filter @luchibei/demo-shop test
 ```
 
 ## E2E tests (Playwright)
 
 ```bash
-pnpm --filter @webmcp/demo-shop test:e2e
+pnpm --filter @luchibei/demo-shop test:e2e
 ```
 
 ## Manual verification of tools

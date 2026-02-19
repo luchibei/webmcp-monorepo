@@ -124,14 +124,14 @@ beforeAll(async () => {
     // server not ready, continue and spawn
   }
 
-  runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sdk", "build"]);
-  runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-react", "build"]);
-  runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sw-runtime", "build"]);
-  runPnpmSetupOrThrow(["--filter", "@webmcp/demo-shop", "build"]);
+  runPnpmSetupOrThrow(["--filter", "@luchibei/webmcp-sdk", "build"]);
+  runPnpmSetupOrThrow(["--filter", "@luchibei/webmcp-react", "build"]);
+  runPnpmSetupOrThrow(["--filter", "@luchibei/webmcp-sw-runtime", "build"]);
+  runPnpmSetupOrThrow(["--filter", "@luchibei/demo-shop", "build"]);
 
   const pnpmCommand = createPnpmCommandArgs([
     "--filter",
-    "@webmcp/demo-shop",
+    "@luchibei/demo-shop",
     "start",
     "--port",
     "3100",

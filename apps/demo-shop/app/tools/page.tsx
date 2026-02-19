@@ -1,6 +1,6 @@
 "use client";
 
-import { isWebMcpSupported } from "@webmcp/webmcp-sdk";
+import { isWebMcpSupported } from "@luchibei/webmcp-sdk";
 import { useMemo, useState } from "react";
 
 import { isShopSwBridgeReady, syncCheckoutStateToSw } from "@/lib/sw-bridge";

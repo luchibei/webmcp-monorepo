@@ -1,5 +1,5 @@
 {
-  "name": "@webmcp/webmcp-react",
+  "name": "@luchibei/webmcp-react",
   "version": "0.1.0",
   "description": "React bindings for WebMCP",
   "type": "module",
@@ -27,7 +27,7 @@
     "lint": "eslint \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@webmcp/webmcp-sdk": "workspace:*"
+    "@luchibei/webmcp-sdk": "workspace:*"
   },
   "peerDependencies": {
     "next": "^14.0.0 || ^15.0.0",

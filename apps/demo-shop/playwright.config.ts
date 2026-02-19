@@ -13,7 +13,7 @@ export default defineConfig({
     screenshot: "only-on-failure"
   },
   webServer: {
-    command: "pnpm --filter @webmcp/demo-shop dev:playwright",
+    command: "pnpm --filter @luchibei/demo-shop dev:playwright",
     url: "http://localhost:3100",
     timeout: 180_000,
     reuseExistingServer: !process.env.CI

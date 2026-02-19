@@ -40,7 +40,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Install Playwright Chromium
-        run: pnpm --filter @webmcp/registry exec playwright install chromium
+        run: pnpm --filter @luchibei/registry exec playwright install chromium
 
       - name: Verify before release
         run: pnpm lint && pnpm -r --workspace-concurrency=1 test && pnpm -r build && pnpm check:manifests

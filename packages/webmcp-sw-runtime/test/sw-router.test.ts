@@ -1,4 +1,4 @@
-import { defineTool } from "@webmcp/webmcp-sdk";
+import { defineTool } from "@luchibei/webmcp-sdk";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 

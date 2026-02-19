@@ -1,8 +1,8 @@
-# @webmcp/webmcp-sdk
+# @luchibei/webmcp-sdk
 
 WebMCP SDK for defining and registering robust tools in the browser.
 
-`@webmcp/webmcp-sdk` wraps the WebMCP APIs with:
+`@luchibei/webmcp-sdk` wraps the WebMCP APIs with:
 
 - Zod-first tool definitions
 - automatic JSON Schema generation (`zod-to-json-schema`)
@@ -35,13 +35,13 @@ This SDK treats all of them as `void | Promise<void>` and always awaits internal
 ### 1) Install
 
 ```bash
-pnpm add @webmcp/webmcp-sdk zod
+pnpm add @luchibei/webmcp-sdk zod
 ```
 
 ### 2) Define a tool
 
 ```ts
-import { defineTool, ok } from "@webmcp/webmcp-sdk";
+import { defineTool, ok } from "@luchibei/webmcp-sdk";
 import { z } from "zod";
 
 export const searchProductsTool = defineTool({
@@ -63,7 +63,7 @@ export const searchProductsTool = defineTool({
 ### 3) Register safely
 
 ```ts
-import { registerToolSafe } from "@webmcp/webmcp-sdk";
+import { registerToolSafe } from "@luchibei/webmcp-sdk";
 
 const handle = await registerToolSafe(searchProductsTool);
 
@@ -74,7 +74,7 @@ await handle.unregister();
 ### 4) Register multiple tools
 
 ```ts
-import { registerToolsSafe } from "@webmcp/webmcp-sdk";
+import { registerToolsSafe } from "@luchibei/webmcp-sdk";
 
 const { unregisterAll } = await registerToolsSafe([searchProductsTool]);
 
@@ -85,7 +85,7 @@ await unregisterAll();
 ### 5) Apply a registration policy
 
 ```ts
-import { createToolPolicy, registerToolsSafe } from "@webmcp/webmcp-sdk";
+import { createToolPolicy, registerToolsSafe } from "@luchibei/webmcp-sdk";
 
 const policy = createToolPolicy({
   defaultDenyWrite: false,
@@ -149,7 +149,7 @@ await client.requestUserInteraction(async () => {
 
 ## 中文说明（简版）
 
-`@webmcp/webmcp-sdk` 用于把网站能力封装成 WebMCP 工具，核心特性：
+`@luchibei/webmcp-sdk` 用于把网站能力封装成 WebMCP 工具，核心特性：
 
 - 用 Zod 定义输入，自动生成 `inputSchema`
 - 自动校验输入 + 统一错误结构

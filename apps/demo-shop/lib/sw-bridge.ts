@@ -1,4 +1,4 @@
-import { createSwToolBridge } from "@webmcp/webmcp-sw-runtime";
+import { createSwToolBridge } from "@luchibei/webmcp-sw-runtime";
 
 import { shopStore } from "./shop-store";
 
