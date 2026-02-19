@@ -125,6 +125,7 @@ beforeAll(async () => {
   }
 
   runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sdk", "build"]);
+  runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-react", "build"]);
   runPnpmSetupOrThrow(["--filter", "@webmcp/webmcp-sw-runtime", "build"]);
   runPnpmSetupOrThrow(["--filter", "@webmcp/demo-shop", "build"]);
 
