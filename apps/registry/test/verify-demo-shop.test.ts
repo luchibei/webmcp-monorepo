@@ -6,13 +6,23 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { verifyWebMcpSite } from "../lib/verify";
 
-const DEMO_SHOP_URL = "http://localhost:3100";
+const DEMO_SHOP_URL = "http://127.0.0.1:3100";
 
 const currentFilePath = fileURLToPath(import.meta.url);
 const currentDir = dirname(currentFilePath);
 const workspaceRoot = resolve(currentDir, "../../..");
 
 let demoShopProcess: ChildProcessWithoutNullStreams | null = null;
+let serverReady = false;
+
+function lastOutputChunk(output: string): string {
+  const lines = output
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  return lines.slice(-20).join("\n");
+}
 
 function createPnpmCommandArgs(): { command: string; args: string[]; shell: boolean } {
   const pnpmArgs = ["--filter", "@webmcp/demo-shop", "dev:playwright"];
@@ -87,7 +97,39 @@ beforeAll(async () => {
     });
   });
 
-  await Promise.race([waitForServer(DEMO_SHOP_URL, 180_000), spawnErrorPromise]);
+  let combinedOutput = "";
+
+  demoShopProcess.stdout.on("data", (chunk) => {
+    combinedOutput += chunk.toString();
+  });
+
+  demoShopProcess.stderr.on("data", (chunk) => {
+    combinedOutput += chunk.toString();
+  });
+
+  const prematureExitPromise = new Promise<never>((_, reject) => {
+    demoShopProcess?.once("exit", (code, signal) => {
+      if (serverReady) {
+        return;
+      }
+
+      const logTail = lastOutputChunk(combinedOutput);
+      const details = logTail ? `\n\nLast output:\n${logTail}` : "";
+
+      reject(
+        new Error(
+          `demo-shop process exited before server was ready (code=${String(code)}, signal=${String(signal)})${details}`
+        )
+      );
+    });
+  });
+
+  await Promise.race([
+    waitForServer(DEMO_SHOP_URL, 180_000),
+    spawnErrorPromise,
+    prematureExitPromise
+  ]);
+  serverReady = true;
 }, 240_000);
 
 afterAll(() => {

@@ -8,7 +8,7 @@
     "build:sw": "tsup --config tsup.sw.config.ts",
     "build": "pnpm run build:sw && next build",
     "dev": "pnpm run build:sw && next dev",
-    "dev:playwright": "pnpm run build:sw && next dev --port 3100",
+    "dev:playwright": "pnpm run build:sw && next dev --port 3100 --hostname 127.0.0.1",
     "start": "next start",
     "test": "vitest run --config ../../vitest.config.ts",
     "test:e2e": "playwright test",
