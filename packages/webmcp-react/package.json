@@ -20,6 +20,9 @@
     "dist",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsup --config tsup.config.ts",
     "dev": "tsup --watch --config tsup.config.ts",
