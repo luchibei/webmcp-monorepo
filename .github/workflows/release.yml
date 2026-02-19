@@ -45,11 +45,24 @@ jobs:
       - name: Verify before release
         run: pnpm lint && pnpm -r --workspace-concurrency=1 test && pnpm -r build && pnpm check:manifests
 
+      - name: Verify npm auth token
+        run: |
+          set -e
+          output=$(npm whoami 2>&1) || {
+            echo "$output"
+            echo "::error::npm auth failed: $output"
+            exit 1
+          }
+          echo "npm authenticated as $output"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Version or Publish with Changesets
         uses: changesets/action@v1
         with:
           version: pnpm version-packages
-          publish: pnpm release
+          publish: >-
+            bash -lc 'output=$(pnpm changeset publish --access public 2>&1) || { echo "$output"; echo "::error::changeset publish failed: $output"; exit 1; }; echo "$output"'
           commit: "chore: version packages"
           title: "chore: version packages"
         env:
