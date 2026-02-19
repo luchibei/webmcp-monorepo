@@ -14,6 +14,32 @@ const workspaceRoot = resolve(currentDir, "../../..");
 
 let demoShopProcess: ChildProcessWithoutNullStreams | null = null;
 
+function createPnpmCommandArgs(): { command: string; args: string[]; shell: boolean } {
+  const pnpmArgs = ["--filter", "@webmcp/demo-shop", "dev:playwright"];
+
+  if (process.env.npm_execpath && process.env.npm_execpath.includes("pnpm")) {
+    return {
+      command: process.execPath,
+      args: [process.env.npm_execpath, ...pnpmArgs],
+      shell: false
+    };
+  }
+
+  if (process.platform === "win32") {
+    return {
+      command: "cmd.exe",
+      args: ["/d", "/s", "/c", "pnpm", ...pnpmArgs],
+      shell: false
+    };
+  }
+
+  return {
+    command: "pnpm",
+    args: pnpmArgs,
+    shell: false
+  };
+}
+
 async function waitForServer(url: string, timeoutMs: number): Promise<void> {
   const start = Date.now();
 
@@ -43,22 +69,25 @@ beforeAll(async () => {
     // server not ready, continue and spawn
   }
 
-  const command =
-    process.platform === "win32" ? "pnpm --filter @webmcp/demo-shop dev:playwright" : "pnpm";
-  const args =
-    process.platform === "win32" ? [] : ["--filter", "@webmcp/demo-shop", "dev:playwright"];
+  const pnpmCommand = createPnpmCommandArgs();
 
-  demoShopProcess = spawn(command, args, {
+  demoShopProcess = spawn(pnpmCommand.command, pnpmCommand.args, {
     cwd: workspaceRoot,
     stdio: "pipe",
-    shell: process.platform === "win32",
+    shell: pnpmCommand.shell,
     env: {
       ...process.env,
       CI: "1"
     }
   });
 
-  await waitForServer(DEMO_SHOP_URL, 180_000);
+  const spawnErrorPromise = new Promise<never>((_, reject) => {
+    demoShopProcess?.once("error", (error) => {
+      reject(error);
+    });
+  });
+
+  await Promise.race([waitForServer(DEMO_SHOP_URL, 180_000), spawnErrorPromise]);
 }, 240_000);
 
 afterAll(() => {
