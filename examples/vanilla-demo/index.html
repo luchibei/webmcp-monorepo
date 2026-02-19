@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebMCP Vanilla Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f4f5f7;
+        --card: #ffffff;
+        --text: #101828;
+        --muted: #475467;
+        --border: #d0d5dd;
+        --accent: #0b6bcb;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family:
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      h1,
+      h2 {
+        margin: 0 0 10px;
+      }
+
+      p {
+        margin: 0 0 10px;
+        color: var(--muted);
+      }
+
+      .row {
+        display: grid;
+        gap: 10px;
+      }
+
+      label {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      input,
+      select,
+      textarea,
+      button {
+        font: inherit;
+      }
+
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px;
+      }
+
+      textarea {
+        min-height: 140px;
+      }
+
+      button {
+        border: 0;
+        background: var(--accent);
+        color: #fff;
+        border-radius: 8px;
+        padding: 10px 14px;
+        cursor: pointer;
+      }
+
+      pre {
+        margin: 0;
+        background: #0f172a;
+        color: #d1f4ff;
+        border-radius: 8px;
+        padding: 12px;
+        overflow: auto;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="card">
+        <h1>WebMCP Vanilla Demo</h1>
+        <p>
+          Pure HTML example with two tools: <code>getPageTitle</code> and
+          <code>searchFlights</code>.
+        </p>
+        <p id="support-status">Checking WebMCP support...</p>
+      </section>
+
+      <section class="card">
+        <h2>Registered Tools</h2>
+        <ul id="tool-list"></ul>
+      </section>
+
+      <section class="card">
+        <h2>Manual Tool Runner</h2>
+        <div class="row">
+          <label for="tool-name">Tool</label>
+          <select id="tool-name"></select>
+
+          <label for="tool-input">Input JSON</label>
+          <textarea id="tool-input">{}</textarea>
+
+          <button id="run-tool" type="button">Run Tool</button>
+
+          <label>Output</label>
+          <pre id="tool-output">Run a tool to inspect output.</pre>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const mockFlights = [
+        {
+          id: "FL-101",
+          from: "SFO",
+          to: "LAX",
+          date: "2026-03-10",
+          price: 119,
+          airline: "SkyJet"
+        },
+        {
+          id: "FL-215",
+          from: "SFO",
+          to: "LAX",
+          date: "2026-03-10",
+          price: 149,
+          airline: "BlueWind"
+        },
+        {
+          id: "FL-330",
+          from: "SFO",
+          to: "SEA",
+          date: "2026-03-10",
+          price: 199,
+          airline: "NorthCloud"
+        }
+      ];
+
+      const tools = [
+        {
+          name: "getPageTitle",
+          description: "Return current page title.",
+          inputSchema: {
+            type: "object",
+            properties: {}
+          },
+          annotations: {
+            readOnlyHint: true
+          },
+          async execute() {
+            return {
+              ok: true,
+              data: {
+                title: document.title
+              }
+            };
+          }
+        },
+        {
+          name: "searchFlights",
+          description: "Search mock flights by from/to/date and optional maxPrice.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              from: { type: "string" },
+              to: { type: "string" },
+              date: { type: "string" },
+              maxPrice: { type: "number" }
+            },
+            required: ["from", "to", "date"]
+          },
+          annotations: {
+            readOnlyHint: true
+          },
+          async execute(input) {
+            const safeInput = input && typeof input === "object" ? input : {};
+            const from = typeof safeInput.from === "string" ? safeInput.from.toUpperCase() : "";
+            const to = typeof safeInput.to === "string" ? safeInput.to.toUpperCase() : "";
+            const date = typeof safeInput.date === "string" ? safeInput.date : "";
+            const maxPrice = typeof safeInput.maxPrice === "number" ? safeInput.maxPrice : null;
+
+            if (!from || !to || !date) {
+              return {
+                ok: false,
+                error: {
+                  code: "INVALID_INPUT",
+                  message: "from, to, and date are required"
+                }
+              };
+            }
+
+            const rows = mockFlights.filter((flight) => {
+              const baseMatch =
+                flight.from === from && flight.to === to && String(flight.date) === String(date);
+              if (!baseMatch) {
+                return false;
+              }
+
+              if (maxPrice === null) {
+                return true;
+              }
+
+              return flight.price <= maxPrice;
+            });
+
+            return {
+              ok: true,
+              data: {
+                query: { from, to, date, maxPrice },
+                total: rows.length,
+                items: rows
+              }
+            };
+          }
+        }
+      ];
+
+      const toolMap = new Map(tools.map((tool) => [tool.name, tool]));
+
+      const supportStatusEl = document.getElementById("support-status");
+      const toolListEl = document.getElementById("tool-list");
+      const toolNameEl = document.getElementById("tool-name");
+      const toolInputEl = document.getElementById("tool-input");
+      const toolOutputEl = document.getElementById("tool-output");
+      const runToolButtonEl = document.getElementById("run-tool");
+
+      function renderToolList() {
+        toolListEl.innerHTML = "";
+
+        tools.forEach((tool) => {
+          const li = document.createElement("li");
+          li.textContent = `${tool.name} - ${tool.description}`;
+          toolListEl.appendChild(li);
+
+          const option = document.createElement("option");
+          option.value = tool.name;
+          option.textContent = tool.name;
+          toolNameEl.appendChild(option);
+        });
+      }
+
+      async function registerTools() {
+        const modelContext = navigator.modelContext;
+
+        if (!modelContext || typeof modelContext.registerTool !== "function") {
+          supportStatusEl.textContent =
+            "WebMCP not available in this browser/runtime. Tools are still runnable in this page via manual runner.";
+          return;
+        }
+
+        for (const tool of tools) {
+          await Promise.resolve(modelContext.registerTool(tool));
+        }
+
+        supportStatusEl.textContent = "WebMCP detected. Tools registered successfully.";
+      }
+
+      async function runTool(name, input) {
+        const tool = toolMap.get(name);
+        if (!tool) {
+          return {
+            ok: false,
+            error: {
+              code: "TOOL_NOT_FOUND",
+              message: `Unknown tool: ${name}`
+            }
+          };
+        }
+
+        const fakeClient = {
+          async requestUserInteraction(action) {
+            return action();
+          }
+        };
+
+        return tool.execute(input, fakeClient);
+      }
+
+      runToolButtonEl.addEventListener("click", async () => {
+        const toolName = toolNameEl.value;
+
+        let input = {};
+        try {
+          input = JSON.parse(toolInputEl.value || "{}");
+        } catch {
+          toolOutputEl.textContent = JSON.stringify(
+            {
+              ok: false,
+              error: {
+                code: "INVALID_JSON",
+                message: "Input must be valid JSON"
+              }
+            },
+            null,
+            2
+          );
+          return;
+        }
+
+        const result = await runTool(toolName, input);
+        toolOutputEl.textContent = JSON.stringify(result, null, 2);
+      });
+
+      renderToolList();
+      registerTools().catch((error) => {
+        supportStatusEl.textContent = `WebMCP registration failed: ${error.message}`;
+      });
+    </script>
+  </body>
+</html>

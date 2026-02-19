@@ -1,0 +1,33 @@
+{
+  "name": "@webmcp/registry",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Registry and verification app scaffold for WebMCP sites",
+  "type": "module",
+  "bin": {
+    "webmcp-verify": "./bin/webmcp-verify.js"
+  },
+  "scripts": {
+    "build:cli": "tsup --config tsup.cli.config.ts",
+    "build": "pnpm run build:cli && next build",
+    "dev": "next dev",
+    "start": "next start",
+    "test": "vitest run --config ../../vitest.config.ts",
+    "lint": "eslint \"app/**/*.{ts,tsx}\" \"lib/**/*.ts\" \"cli/**/*.ts\" \"test/**/*.ts\"",
+    "webmcp-verify": "node ./dist/cli/webmcp-verify.js"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "next": "^15.0.4",
+    "playwright": "^1.52.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "@webmcp/bridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "WebMCP site to MCP server bridge",
+  "type": "module",
+  "bin": {
+    "bridge": "./bin/bridge.js"
+  },
+  "scripts": {
+    "build": "pnpm run build:lib && pnpm run build:cli",
+    "build:lib": "tsup --config tsup.config.ts",
+    "build:cli": "tsup --config tsup.cli.config.ts",
+    "dev": "tsup --watch --config tsup.config.ts",
+    "test": "vitest run --config ../../vitest.config.ts",
+    "lint": "eslint \"src/**/*.ts\" \"test/**/*.ts\"",
+    "bridge": "node ./dist/cli/cli.js",
+    "verify:demo-shop": "node ./scripts/verify-demo-shop-bridge.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.26.0",
+    "@webmcp/webmcp-sdk": "workspace:*",
+    "playwright": "^1.58.2"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
